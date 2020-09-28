@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Grocery;
 
 class GroceriesController extends Controller
 {
@@ -14,7 +15,8 @@ class GroceriesController extends Controller
     public function index()
     {
         //
-        return 'Index page';
+        return view('groceries.index', ['groceriesFromDatabase' => Grocery::all()]); 
+        //dd($groceries = Grocery::all());
     }
 
     /**
