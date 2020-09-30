@@ -1,5 +1,19 @@
 @extends ('layouts.app')
 
 @section ('create')
-<h1>Test</h1>
+<form action="{{ route('groceries.store') }}" method="POST">
+    @csrf
+        <br>
+        <label for="name">Product:</label>
+        <input type="text" id="name" name="name" required>
+        
+        <label for="amount">Aantal:</label>
+        <input type="number" id="amount" name="amount" required>
+        
+        <label for="price">Prijs:</label>
+        <input type="number" id="price" name="price" required>
+
+        <button type="submit" value="Submit">Submit</button>
+
+    </form>
 @endsection ('create')

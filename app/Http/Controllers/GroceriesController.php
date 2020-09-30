@@ -40,6 +40,35 @@ class GroceriesController extends Controller
     public function store(Request $request)
     {
         //
+        //return "You called the store method on the GroceriesController";
+        request()->validate([
+            'name' => 'required',
+            'amount' => 'required',
+            'price' => 'required',
+
+        ]); 
+
+        $grocery = new Grocery;
+
+        $grocery->name = $request->name;
+        $grocery->amount = $request->amount;
+        $grocery->price = $request->price;
+        //dd($grocery);
+        $grocery->save();
+
+        return redirect()->route('groceries.index');
+
+    }
+
+        /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        //
     }
 
     /**
