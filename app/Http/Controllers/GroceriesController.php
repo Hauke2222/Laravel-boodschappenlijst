@@ -42,7 +42,7 @@ class GroceriesController extends Controller
         //
         //return "You called the store method on the GroceriesController";
         request()->validate([
-            'name' => 'required',
+            'name' => ['required', 'min:2'],
             'amount' => 'required',
             'price' => 'required',
 
@@ -77,9 +77,10 @@ class GroceriesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Grocery $grocery)
     {
         //
+        return view('groceries.edit', ['grocery' => $grocery]);
     }
 
     /**
@@ -89,9 +90,23 @@ class GroceriesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Grocery $grocery)
     {
         //
+        request()->validate([
+            'name' => ['required', 'min:2'],
+            'amount' => 'required',
+            'price' => 'required',
+
+        ]); 
+
+        $grocery->name = $request->name;
+        $grocery->amount = $request->amount;
+        $grocery->price = $request->price;
+        //dd($grocery);
+        $grocery->save();
+
+        return redirect()->route('groceries.index');
     }
 
     /**
@@ -100,8 +115,12 @@ class GroceriesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Grocery $grocery)
     {
         //
+        //dd($grocery);
+        $grocery->delete();
+        return redirect()->route('groceries.index');
+
     }
 }

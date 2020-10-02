@@ -13,7 +13,9 @@ use App\Http\Controllers\GroceriesController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+Route::get('groceries/{grocery}/edit', [
+    'as' => 'groceries.edit'
+]);
 Route::resource('groceries', 'App\Http\Controllers\GroceriesController');
 
 Route::redirect('/', '/groceries');
