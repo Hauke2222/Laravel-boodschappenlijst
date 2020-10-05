@@ -43,8 +43,8 @@ class GroceriesController extends Controller
         //return "You called the store method on the GroceriesController";
         request()->validate([
             'name' => ['required', 'min:2'],
-            'amount' => 'required',
-            'price' => 'required',
+            'amount' => ['required', 'integer', 'min:1'],
+            'price' => ['required', 'numeric', 'gt:0'],
 
         ]); 
 
@@ -95,11 +95,10 @@ class GroceriesController extends Controller
         //
         request()->validate([
             'name' => ['required', 'min:2'],
-            'amount' => 'required',
-            'price' => 'required',
+            'amount' => ['required', 'integer', 'min:1'],
+            'price' => ['required', 'numeric', 'gt:0'],
 
         ]); 
-
         $grocery->name = $request->name;
         $grocery->amount = $request->amount;
         $grocery->price = $request->price;
