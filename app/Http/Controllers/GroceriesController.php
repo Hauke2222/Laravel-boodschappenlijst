@@ -40,21 +40,12 @@ class GroceriesController extends Controller
     public function store(Request $request)
     {
         //
-        //return "You called the store method on the GroceriesController";
-        request()->validate([
+        Grocery::create(request()->validate([
             'name' => ['required', 'min:2'],
             'amount' => ['required', 'integer', 'min:1'],
             'price' => ['required', 'numeric', 'gt:0'],
 
-        ]); 
-
-        $grocery = new Grocery;
-
-        $grocery->name = $request->name;
-        $grocery->amount = $request->amount;
-        $grocery->price = $request->price;
-        //dd($grocery);
-        $grocery->save();
+        ]));
 
         return redirect()->route('groceries.index');
 
@@ -93,17 +84,12 @@ class GroceriesController extends Controller
     public function update(Request $request, Grocery $grocery)
     {
         //
-        request()->validate([
+        $grocery->update(request()->validate([
             'name' => ['required', 'min:2'],
             'amount' => ['required', 'integer', 'min:1'],
             'price' => ['required', 'numeric', 'gt:0'],
 
-        ]); 
-        $grocery->name = $request->name;
-        $grocery->amount = $request->amount;
-        $grocery->price = $request->price;
-        //dd($grocery);
-        $grocery->save();
+        ]));
 
         return redirect()->route('groceries.index');
     }
