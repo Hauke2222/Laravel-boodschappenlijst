@@ -15,7 +15,8 @@ class GroceriesController extends Controller
     public function index()
     {
         //
-        return view('groceries.index', ['groceriesFromDatabase' => Grocery::all()]); 
+        return view('groceries.index', ['groceriesFromDatabase' => Grocery::all()]);
+        // oude commentaren verwijderen
         //dd($groceries = Grocery::all());
     }
 
@@ -28,7 +29,7 @@ class GroceriesController extends Controller
     {
         //
         return view('groceries.create');
-        
+
     }
 
     /**
@@ -39,11 +40,12 @@ class GroceriesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // omdat je op meerdere plaatsen in de code dezelfde validator gebruikt, kun je deze in 1 functie stoppen en hergebruiken. Nog mooier is
+        // om hem in een Form Request Validator te stoppen, zie: https://laravel.com/docs/8.x/validation#form-request-validation
         Grocery::create(request()->validate([
-            'name' => ['required', 'min:2'],
+            'name' => ['required', 'min:2'], // je zou nog een max kunnen specificeren: bijv. 'max:255'
             'amount' => ['required', 'integer', 'min:1'],
-            'price' => ['required', 'numeric', 'gt:0'],
+            'price' => ['required', 'numeric', 'gt:0'], // netjes!
 
         ]));
 
@@ -102,7 +104,7 @@ class GroceriesController extends Controller
      */
     public function destroy(Grocery $grocery)
     {
-        //
+        // ongebruikte comments verwijderen
         //dd($grocery);
         $grocery->delete();
         return redirect()->route('groceries.index');
