@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Grocery;
+use App\Http\Requests\StoreGrocery;
 
 class GroceriesController extends Controller
 {
@@ -16,8 +17,6 @@ class GroceriesController extends Controller
     {
         //
         return view('groceries.index', ['groceriesFromDatabase' => Grocery::all()]);
-        // oude commentaren verwijderen
-        //dd($groceries = Grocery::all());
     }
 
     /**
@@ -38,16 +37,10 @@ class GroceriesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreGrocery $request)
     {
-        // omdat je op meerdere plaatsen in de code dezelfde validator gebruikt, kun je deze in 1 functie stoppen en hergebruiken. Nog mooier is
-        // om hem in een Form Request Validator te stoppen, zie: https://laravel.com/docs/8.x/validation#form-request-validation
-        Grocery::create(request()->validate([
-            'name' => ['required', 'min:2'], // je zou nog een max kunnen specificeren: bijv. 'max:255'
-            'amount' => ['required', 'integer', 'min:1'],
-            'price' => ['required', 'numeric', 'gt:0'], // netjes!
-
-        ]));
+        $validated = $request->validated();
+        Grocery::create($validated);
 
         return redirect()->route('groceries.index');
 
@@ -83,15 +76,11 @@ class GroceriesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Grocery $grocery)
+    public function update(StoreGrocery $request, Grocery $grocery)
     {
         //
-        $grocery->update(request()->validate([
-            'name' => ['required', 'min:2'],
-            'amount' => ['required', 'integer', 'min:1'],
-            'price' => ['required', 'numeric', 'gt:0'],
-
-        ]));
+        $validated = $request->validated();
+        $grocery->update($validated);
 
         return redirect()->route('groceries.index');
     }
@@ -104,8 +93,6 @@ class GroceriesController extends Controller
      */
     public function destroy(Grocery $grocery)
     {
-        // ongebruikte comments verwijderen
-        //dd($grocery);
         $grocery->delete();
         return redirect()->route('groceries.index');
 

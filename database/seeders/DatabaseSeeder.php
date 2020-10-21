@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use App\Models\Grocery;
 
 class DatabaseSeeder extends Seeder
 {
@@ -13,9 +14,21 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // User::factory(10)->create();
+        Grocery::create([
+            'name' => ('Brood'),
+            'amount' => (1),
+            'price' => (2),
+        ]);
+        Grocery::create([
+            'name' => ('Kaas'),
+            'amount' => (1),
+            'price' => (6),
+        ]);
+        Grocery::create([
+            'name' => ('Water'),
+            'amount' => (1),
+            'price' => (1),
+        ]);  
 
-        // extra oefening: maak een GrocerySeeder zodat je bij het installeren van het project automatisch dummmy-data (boodschappen) kunt laten toevoegen
-        // voor meer informatie zie: https://laravel.com/docs/8.x/seeding
     }
 }

@@ -14,10 +14,6 @@ use App\Http\Controllers\GroceriesController;
 |
 */
 
-// onderstaande route is dubbel (overbodig)
-Route::get('groceries/{grocery}/edit', [
-    'as' => 'groceries.edit'
-]);
 Route::resource('groceries', 'App\Http\Controllers\GroceriesController');
 
-Route::redirect('/', '/groceries'); // netjes!
+Route::redirect('/', '/groceries'); 
